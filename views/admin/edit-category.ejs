@@ -1,0 +1,50 @@
+<%- include("../../views/partials/admin/header") %>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-60">
+            <form method="post" action="/admin/editCategory/<%=category._id%>" onsubmit="return validateForm(event)">
+                <div class="d-grid text-end mt-30 col-md-5">
+                    <button class="btn btn-primary" type="submit">Update category</button>
+                </div>
+                <div class="mb-4 mt-30">
+                    <label for="product_name" class="form-label">Name</label>
+                    <input type="text" name="categoryName" value="<%=category.name%>" class="form-control border" />
+                    <div id="name-error" class="text-danger mt-1" style="display: none;">Please enter a category name</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-control border"><%=category.description%></textarea>
+                    <div id="description-error" class="text-danger mt-1" style="display: none;">Please enter a description</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function validateForm(event){
+        event.preventDefault();
+        document.getElementById("name-error").style.display="none";
+        document.getElementById("description-error").style.display="none";
+
+        const categoryName=document.querySelector("[name='categoryName']").value.trim();
+        const description=document.querySelector("[name='description']").value.trim();
+        let isValid = true;
+
+        
+
+        if(!categoryName){
+           document.getElementById("name-error").style.display="block";
+           isValid=false; 
+        }
+        if(!description){
+           document.getElementById("description-error").style.display="block";
+           isValid=false; 
+        }
+        if(isValid){
+            event.target.submit()
+        }
+    }
+</script>
+    
+<%- include("../../views/partials/admin/footer") %>

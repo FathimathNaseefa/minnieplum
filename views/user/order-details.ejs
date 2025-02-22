@@ -1,0 +1,118 @@
+<%- include("../../views/partials/user/header") %>
+
+
+
+<div>
+<main class="container mt-5" style="background-color: rgb(250, 167, 195);">
+    <h2>Order Details</h2>
+
+    <div class="card p-4 shadow" >
+        <h4>Order placed: <%= new Date(order.createdAt).toLocaleDateString("en-IN", {
+            day: 'numeric', month: 'long', year: 'numeric'
+        }) %></h4>
+        <p><strong>Order Number:</strong> <%= order._id %></p>
+
+        <hr>
+
+        
+        <button onclick="downloadInvoice('<%= order._id %>')">Download Invoice</button> 
+       
+
+
+
+
+        
+
+        <h4>Shipping Address</h4>
+        <p>
+            <% if (order.shippingAddress) { %>
+                <strong><%= order.shippingAddress.name || "N/A" %></strong> <br>
+                <%= order.shippingAddress.addressLine1 || "N/A" %> <br>
+                <% if (order.shippingAddress.addressLine2) { %>
+                    <%= order.shippingAddress.addressLine2 %> <br>
+                <% } %>
+                <%= order.shippingAddress.city || "N/A" %>, 
+                <%= order.shippingAddress.state || "N/A" %> 
+                <%= order.shippingAddress.postalCode || "N/A" %> <br>
+                <%= order.shippingAddress.country || "N/A" %> <br>
+                Phone: <%= order.shippingAddress.phoneNumber || "N/A" %>
+            <% } else { %>
+                <strong>Address Not Available</strong>
+            <% } %>
+        </p>
+        
+
+
+        <hr>
+
+        <h4>Payment Method</h4>
+        <p><strong><%= order.paymentMethod %></strong></p>
+
+        <hr>
+
+        <h4>Order Summary</h4>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>Item(s) Subtotal:</td>
+                    <td>₹<%= order.items.reduce((sum, item) => sum + item.price * item.quantity, 0) %></td>
+                </tr>
+                <tr>
+                    <td>Shipping:</td>
+                    <td>₹40</td>
+                </tr>
+                <tr>
+                    <td>Cash/Pay on Delivery Fee:</td>
+                    <td>₹7</td>
+                </tr>
+                <tr>
+                    <td><strong>Total:</strong></td>
+                    <td><strong>₹<%= order.totalAmount + (order.discount || 0) %></strong></td>
+                </tr>
+                <% if (order.discount && order.discount > 0) { %>
+                <tr>
+                    <td>Promotion Applied:</td>
+                    <td>- ₹<%= order.discount %></td>
+                </tr>
+                <% } %>
+                <tr>
+                    <td><strong>Grand Total:</strong></td>
+                    <td><strong>₹<%= order.totalAmount %></strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        
+
+        <hr>
+
+        <a href="/userProfile" class="btn btn-secondary">Back to Profile</a>
+    </div>
+</main></div>
+<script>
+    const downloadInvoice = async (orderId) => {
+      try {
+        const response = await fetch(`/download-invoice/${orderId}`);
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `invoice_${orderId}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          console.error("Failed to download invoice");
+        }
+      } catch (error) {
+        console.error("Error downloading invoice:", error);
+      }
+    };
+  </script>
+
+<%- include("../../views/partials/user/footer") %> 
+
+

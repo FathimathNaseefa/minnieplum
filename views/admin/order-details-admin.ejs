@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Order Details</title>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Link to your CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .order-container {
+            width: 60%;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .order-info {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: #007bff;
+            color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Details</h1>
+
+    <div class="order-container">
+        <div class="order-info">
+            <p><strong>Order ID:</strong> <%= orderId %></p>
+            <p><strong>User ID:</strong> <%= orders.userId %></p>
+            <p><strong>Status:</strong> <%= orders.status %></p>
+            <p><strong>Payment Method:</strong> <%= orders.paymentMethod %></p>
+            <p><strong>Total Amount:</strong> ₹<%= finalAmount %></p>
+        </div>
+
+        <h2>Ordered Items</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.items.forEach(item => { %>
+                    <tr>
+                        <td><%= item.productId %></td>
+                        <td><%= item.quantity %></td>
+                        <td>₹<%= item.price %></td>
+                        <td>₹<%= item.quantity * item.price %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <p class="total">Total Amount: ₹<%= finalAmount %></p>
+    </div>
+</body>
+</html>

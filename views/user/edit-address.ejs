@@ -1,0 +1,412 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Address</title>
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f3f3f3, #e0e0e0);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 430px;
+    text-align: center;
+}
+.error {
+    display: block;
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 13px;
+    background: #f8d7da;
+    padding: 6px;
+    border: 1px solid #d9534f;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+label {
+    display: block;
+    text-align: left;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #444;
+}
+input[type="text"], input[type="checkbox"] {
+    width: calc(100% - 16px);
+    padding: 12px;
+    /* margin-bottom: 15px; */
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Checkbox */
+label input[type="checkbox"] {
+    width: auto;
+    margin-right: 6px;
+}
+
+/* Submit Button */
+button {
+    width: 100%;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+button:hover {
+    background: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input[type="text"], button {
+        font-size: 14px;
+    }
+}
+ </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent form submission until validation is complete
+
+            const name = document.getElementById("name").value.trim();
+            const addressLine1 = document.getElementById("addressLine1").value.trim();
+            const city = document.getElementById("city").value.trim();
+            const state = document.getElementById("state").value.trim();
+            const postalCode = document.getElementById("postalCode").value.trim();
+            const country = document.getElementById("country").value.trim();
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+            const errorMessage = document.getElementById("error-message");
+
+            // Reset previous error messages
+            errorMessage.innerHTML = "";
+
+            if (name === "" || addressLine1 === "" || city === "" || state === "" || postalCode === "" || country === "" || phoneNumber === "") {
+                errorMessage.innerHTML = "All fields are required!";
+                return false;
+            }
+            const pattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/; // Allows alphabets and spaces between words
+if (!pattern.test(name) || !pattern.test(city) || !pattern.test(state)) {
+    errorMessage.innerHTML = "Invalid Name! Only alphabets and spaces are allowed.";
+    return false;
+}
+
+            if (!/^\d{6}$/.test(postalCode)) {
+                errorMessage.innerHTML = "Invalid Postal Code! Must be 6 digits.";
+                return false;
+            }
+
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                errorMessage.innerHTML = "Invalid Phone Number! Must be 10 digits.";
+                return false;
+            }
+
+            document.getElementById("edit-address-form").submit(); // Submit form if validation passes
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Address</h2>
+
+        <!-- Display server-side validation errors -->
+        <!-- <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+
+        <p id="error-message" class="error"></p>
+
+        <form id="edit-address-form" action="/editAddress" method="POST" onsubmit="validateForm(event)">
+            <input type="hidden" name="id" value="<%= address ? address._id : '' %>" />
+
+            <label>Full Name:</label>
+            <input type="text" id="name" name="name" value="<%= address ? address.name : '' %>" required />
+
+            <label>Address Line 1:</label>
+            <input type="text" id="addressLine1" name="addressLine1" value="<%= address ? address.addressLine1 : '' %>" required />
+
+            <label>Address Line 2 (Optional):</label>
+            <input type="text" id="addressLine2" name="addressLine2" value="<%= address ? address.addressLine2 : '' %>" />
+
+            <label>City:</label>
+            <input type="text" id="city" name="city" value="<%= address ? address.city : '' %>" required />
+
+            <label>State:</label>
+            <input type="text" id="state" name="state" value="<%= address ? address.state : '' %>" required />
+
+            <label>Postal Code:</label>
+            <input type="text" id="postalCode" name="postalCode" value="<%= address ? address.postalCode : '' %>" required />
+
+            <label>Country:</label>
+            <input type="text" id="country" name="country" value="<%= address ? address.country : '' %>" required />
+
+            <label>Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" value="<%= address ? address.phoneNumber : '' %>" required />
+
+            <label>
+                <input type="checkbox" name="isDefault" <%= address && address.isDefault ? "checked" : "" %> /> Set as Default Address
+            </label>
+
+            <button type="submit" id="submitButton">Update Address</button>
+        </form>
+    </div>
+</body>
+</html> --> 
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Address</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f3f3f3, #e0e0e0);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 430px;
+            text-align: center;
+        }
+        .error {
+            color: #d9534f;
+            font-size: 13px;
+            margin-top: 5px;
+            display: block;
+            text-align: left;
+        }
+        label {
+            display: block;
+            text-align: left;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        input[type="text"], input[type="checkbox"] {
+            width: calc(100% - 16px);
+            padding: 12px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: 0.3s;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"]:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        /* Submit Button */
+        button {
+            width: 100%;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            input[type="text"], button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent form submission until validation is complete
+            
+            const fields = ["name", "addressLine1", "city", "state", "postalCode", "country", "phoneNumber"];
+            let isValid = true;
+
+            // Reset error messages
+            fields.forEach(field => {
+                document.getElementById(field + "-error").textContent = "";
+            });
+
+            // Get values
+            const name = document.getElementById("name").value.trim();
+            const addressLine1 = document.getElementById("addressLine1").value.trim();
+            const city = document.getElementById("city").value.trim();
+            const state = document.getElementById("state").value.trim();
+            const postalCode = document.getElementById("postalCode").value.trim();
+            const country = document.getElementById("country").value.trim();
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+
+            // Validation patterns
+            const textPattern = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+            const postalPattern = /^\d{6}$/;
+            const phonePattern = /^\d{10}$/;
+
+            // Validate each field
+            if (!name) {
+                document.getElementById("name-error").textContent = "Full Name is required!";
+                isValid = false;
+            } else if (!textPattern.test(name)) {
+                document.getElementById("name-error").textContent = "Invalid Name! Only letters and spaces allowed.";
+                isValid = false;
+            }
+
+            if (!addressLine1) {
+                document.getElementById("addressLine1-error").textContent = "Address Line 1 is required!";
+                isValid = false;
+            }
+
+            if (!city) {
+                document.getElementById("city-error").textContent = "City is required!";
+                isValid = false;
+            } else if (!textPattern.test(city)) {
+                document.getElementById("city-error").textContent = "Invalid City! Only letters and spaces allowed.";
+                isValid = false;
+            }
+
+            if (!state) {
+                document.getElementById("state-error").textContent = "State is required!";
+                isValid = false;
+            } else if (!textPattern.test(state)) {
+                document.getElementById("state-error").textContent = "Invalid State! Only letters and spaces allowed.";
+                isValid = false;
+            }
+
+            if (!postalCode) {
+                document.getElementById("postalCode-error").textContent = "Postal Code is required!";
+                isValid = false;
+            } else if (!postalPattern.test(postalCode)) {
+                document.getElementById("postalCode-error").textContent = "Invalid Postal Code! Must be 6 digits.";
+                isValid = false;
+            }
+
+            if (!country) {
+                document.getElementById("country-error").textContent = "Country is required!";
+                isValid = false;
+            }
+
+            if (!phoneNumber) {
+                document.getElementById("phoneNumber-error").textContent = "Phone Number is required!";
+                isValid = false;
+            } else if (!phonePattern.test(phoneNumber)) {
+                document.getElementById("phoneNumber-error").textContent = "Invalid Phone Number! Must be 10 digits.";
+                isValid = false;
+            }
+
+            // Submit form if all validations pass
+            if (isValid) {
+                document.getElementById("edit-address-form").submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Address</h2>
+
+        <form id="edit-address-form" action="/editAddress" method="POST" onsubmit="validateForm(event)">
+            <input type="hidden" name="id" value="<%= address ? address._id : '' %>" />
+
+            <label>Full Name:</label>
+            <input type="text" id="name" name="name" value="<%= address ? address.name : '' %>" required />
+            <span class="error" id="name-error"></span>
+
+            <label>Address Line 1:</label>
+            <input type="text" id="addressLine1" name="addressLine1" value="<%= address ? address.addressLine1 : '' %>" required />
+            <span class="error" id="addressLine1-error"></span>
+
+            <label>City:</label>
+            <input type="text" id="city" name="city" value="<%= address ? address.city : '' %>" required />
+            <span class="error" id="city-error"></span>
+
+            <label>State:</label>
+            <input type="text" id="state" name="state" value="<%= address ? address.state : '' %>" required />
+            <span class="error" id="state-error"></span>
+
+            <label>Postal Code:</label>
+            <input type="text" id="postalCode" name="postalCode" value="<%= address ? address.postalCode : '' %>" required />
+            <span class="error" id="postalCode-error"></span>
+
+            <label>Country:</label>
+            <input type="text" id="country" name="country" value="<%= address ? address.country : '' %>" required />
+            <span class="error" id="country-error"></span>
+
+            <label>Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" value="<%= address ? address.phoneNumber : '' %>" required />
+            <span class="error" id="phoneNumber-error"></span>
+
+            <button type="submit">Update Address</button>
+        </form>
+    </div>
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent form submission to handle validation first
+
+            let name = document.getElementById('name').value;
+            let nameError = document.getElementById('name-error');
+
+            // Validate full name to ensure it's not a single letter
+            if (!/^[A-Za-z\s]{2,}$/.test(name)) {
+                nameError.textContent = 'Please enter a valid full name (at least 2 characters).';
+                return false; // Stop the form submission if validation fails
+            } else {
+                nameError.textContent = ''; // Clear error message if validation passes
+            }
+
+            // Proceed with form submission if all validations pass
+            document.getElementById('edit-address-form').submit();
+        }
+    </script>
+</body>
+</html>
