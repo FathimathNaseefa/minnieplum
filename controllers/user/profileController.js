@@ -728,19 +728,7 @@ const deleteAddress = async (req, res) => {
 };
 
 
-// const cancelOrder = async (req, res) => {
-//     const { orderId } = req.body;
-  
-//     try {
-//       await Order.findByIdAndUpdate(orderId, { status: "Cancelled" });
-  
-//       res.json({ success: true, message: "Order cancelled successfully", orderId });
-//     } catch (err) {
-//       console.error("Error cancelling order:", err);
-//       res.status(500).json({ success: false, message: "Failed to cancel order" });
-//     }
-//   };
-  
+
 
 
 
