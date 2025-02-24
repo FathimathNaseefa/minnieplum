@@ -11,37 +11,6 @@ exports.report=(req,res)=>{
 }
 
 
-// Generate PDF Report
-// exports.getSalesReportData = async (req, res) => {
-//     try {
-//         let { startDate, endDate } = req.body;
-
-//         if (!startDate || !endDate) {
-//             return res.status(400).json({ success: false, message: "Invalid date range" });
-//         }
-
-//         startDate = new Date(startDate);
-//         endDate = new Date(endDate);
-//         endDate.setHours(23, 59, 59, 999); // Ensure full-day inclusion
-
-//         console.log(`Fetching sales report for: ${startDate} to ${endDate}`);
-
-//         const orders = await Order.find({
-//             createdAt: { $gte: startDate, $lte: endDate },
-//             status: { $ne: "Cancelled" },
-//         });
-
-//         console.log(`Orders found: ${orders.length}`);
-
-//         const totalOrders = orders.length;
-//         const totalSales = orders.reduce((acc, order) => acc + (order.totalAmount || 0), 0);
-//         const totalDiscount = orders.reduce((acc, order) => acc + (order.discount || 0), 0);
-
-//         res.json({ success: true, data: { totalOrders, totalSales, totalDiscount } });
-//     } catch (error) {
-//         res.status(500).json({ success: false, message: "Error fetching report data", error });
-//     }
-// };
 
 
 
