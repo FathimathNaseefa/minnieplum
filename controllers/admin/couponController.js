@@ -33,45 +33,6 @@ const getAddCouponPage = async(req, res) => {
 
 
 
-// const createCoupon = async (req, res) => {
-//   try {
-//       const { code, discount, discountType, expiry, usageLimit, categoryIds, productIds } = req.body;
-
-//       // ✅ Validate that categoryIds and productIds are arrays (optional)
-//       if (!Array.isArray(categoryIds)) {
-//           return res.json({ success: false, message: "Invalid category IDs format!" });
-//       }
-
-//       if (!Array.isArray(productIds)) {
-//           return res.json({ success: false, message: "Invalid product IDs format!" });
-//       }
-
-//       // ✅ Create new coupon with category and product selections
-//       const newCoupon = new Coupon({
-//           code,
-//           discount,
-//           discountType,
-//           expiry,
-//           usageLimit,
-//           categoryIds,  // Store selected category IDs
-//           productIds    // Store selected product IDs
-//       });
-
-//       await newCoupon.save();
-
-//       return res.json({ success: true, message: "Coupon added successfully!" });
-
-//   } catch (error) {
-//       console.error("Error creating coupon:", error);
-
-//       // ✅ Handle duplicate key error
-//       if (error.code === 11000) {
-//           return res.json({ success: false, message: "Coupon code already exists!" });
-//       }
-
-//       return res.json({ success: false, message: "Internal Server Error" });
-//   }
-// };
 
 
 
