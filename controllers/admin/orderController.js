@@ -11,35 +11,6 @@ const crypto = require("crypto");
 
 const { v4: uuidv4 } = require("uuid");
 
-// 🛍️ Admin Order List with Pagination
-// const getOrderListPageAdmin = async (req, res) => {
-//   try {
-//     // const orders = await Order.find({}).sort({ createdOn: -1 });
-//     const orders = await Order.find({})
-//     .sort({ createdOn: -1 }) // Sort by createdOn in descending order
-//     .populate('userId'); // Populate the userId field with the User document
-//     let itemsPerPage = 5;
-//     let currentPage = parseInt(req.query.page) || 1;
-//     let startIndex = (currentPage - 1) * itemsPerPage;
-//     let endIndex = startIndex + itemsPerPage;
-//     let totalPages = Math.ceil(orders.length / itemsPerPage);
-    
-//     const currentOrder = orders.slice(startIndex, endIndex);
-//     currentOrder.forEach(order => {
-//       order.orderId = uuidv4();
-//     });
-
-//     res.render("order-list", { orders: currentOrder, totalPages, currentPage });
-//   } catch (error) {
-//     console.error(error);
-//     res.redirect("/pageerror");
-//   }
-// };
-
-
-
-
-
 
 const getOrderListPageAdmin = async (req, res) => {
   try {
@@ -91,43 +62,6 @@ const changeOrderStatus = async (req, res) => {
   }
 };
 
-
-
-
-
-// 📝 View Order Details (Admin)
-// const getOrderDetailsPageAdmin = async (req, res) => {
-//   try {
-//     const orderId = req.query.id;
-//     console.log("Order ID received:", orderId); 
-//     const findOrder = await Order.findOne({ _id: orderId }).sort({ createdOn: 1 });
-
-//     if (!findOrder) {
-//       throw new Error("Order not found");
-//     }
-//     if (!findOrder.product || !Array.isArray(findOrder.product)) {
-//       console.log("Order has no products!");
-//       return res.redirect("/pageerror");
-//     }
-
-//     let totalGrant = 0;
-//     findOrder.product.forEach((val) => {
-//       totalGrant += val.price * val.quantity;
-//     });
-
-//     const totalPrice = findOrder.totalPrice;
-//     const discount = totalGrant - totalPrice;
-
-//     res.render("order-details-admin", {
-//       orders: findOrder,
-//       orderId: orderId,
-//       finalAmount: totalPrice,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.redirect("/pageerror");
-//   }
-// };  
 
 const getOrderDetailsPageAdmin = async (req, res) => {
   try {
