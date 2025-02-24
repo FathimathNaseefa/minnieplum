@@ -44,15 +44,6 @@ const loadSignup=async (req,res)=>{
     }
 }
 
-// const loadSignup = async (req, res) => {
-//     try {
-//         const referralCode = req.query.ref || ""; // Get referral code from URL
-//         return res.render("signup", { referralCode }); // Pass it to the signup page
-//     } catch (error) {
-//         console.log("Signup page not loading", error);
-//         res.status(500).send("Server Error");
-//     }
-// };
 
 
 function generateOtp(){
@@ -86,37 +77,6 @@ async function sendVerificationEmail(email,otp){
         return false;
     }
 }
-// const signup=async(req,res)=>{
-//     try{
-//     const { name,email,phone,password,cPassword}=req.body;
-   
-//      if(password !==cPassword){
-//         return res.render("signup",{message:"Passwords do not match"});
-//     }
-//  const findUser =await User.findOne({email})
-//   if(findUser){
-//         return res.render("signup",{message:"User with this email already exists"})
-//     }
-//     const otp=generateOtp();
-//     const emailSent = await sendVerificationEmail(email,otp);
-//     if(!emailSent){
-//         return res.json("email-error")
-//     }
-//     req.session.userOtp=otp;
-//     req.session.userData={name,email,phone,password};
-
-//      res.render("verifyotp");
-//     console.log("OTP sent",otp)
-//    }catch(error){
-//     console.error("signup error",error);
-
-
-//     if(error.code === 11000 && error.keyValue.email){
-//         return res.render("signup",{message:"User with this emaqil already exists"})
-//     }
-//     res.redirect("/pageNotFound")
-//    }
-// }
 
 
 
@@ -140,33 +100,6 @@ const securePassword = async (password)=>{
 
 
 
-
-// const verifyOtp =async (req,res)=>{
-//     try{
-//         const {otp}=req.body;
-//         console.log(otp)
-//         if(otp===req.session.userOtp){
-//             const user=req.session.userData;
-//             const passwordHash = await securePassword(user.password);
-
-//             const saveUserData = new User({
-//                 name:user.name,
-//                 email:user.email,
-//                 phone:user.phone,
-//                 password:passwordHash,
-//             })
-//             await saveUserData.save()
-//             req.session.user = saveUserData._id;
-//             res.json({success:true,redirectUrl:"/"})
-//         }else{
-//             res.status(400).json({success:false,message:"Invalid OTP,please try again"})
-//         }
-//     }catch(error){
-//         console.error("Error Verifying OTP",error);
-//         res.status(500).json({success:false,message:"An error occurred"})
-        
-//     }
-// }
 
 
 
@@ -215,53 +148,7 @@ const signup = async (req, res) => {
     }
 };
 
-// Verify OTP and Register User
-// const verifyOtp = async (req, res) => {
-//     try {
-//         const { otp } = req.body;
 
-//         if (otp === req.session.userOtp) {
-//             const { name, email, phone, password, ref } = req.session.userData;
-//             const passwordHash = await bcrypt.hash(password, 10);
-
-//             let referredBy = null; // Default to null
-
-//             // Validate and map referral code to ObjectId
-//             if (ref) {
-//                 const referrer = await User.findOne({ referralCode: ref });
-//                 if (referrer) {
-//                     referredBy = referrer._id; // Assign valid ObjectId
-//                     referrer.wallet += REFERRAL_BONUS;
-//                     referrer.walletHistory.push({
-//                         type: "credit",
-//                         description: "Referral Bonus",
-//                         amount: REFERRAL_BONUS
-//                     });
-//                     await referrer.save();
-//                 }
-//             }
-
-//             // Create the new user with a valid ObjectId (or null) for referredBy
-//             const newUser = new User({
-//                 name,
-//                 email,
-//                 phone,
-//                 password: passwordHash,
-//                 referredBy, // This will now always be a valid ObjectId or null
-//             });
-
-//             await newUser.save();
-
-//             req.session.user = newUser._id;
-//             res.json({ success: true, redirectUrl: "/" });
-//         } else {
-//             res.status(400).json({ success: false, message: "Invalid OTP, please try again" });
-//         }
-//     } catch (error) {
-//         console.error("Error Verifying OTP", error);
-//         res.status(500).json({ success: false, message: "An error occurred" });
-//     }
-// };
 
 const verifyOtp = async (req, res) => {
     try {
