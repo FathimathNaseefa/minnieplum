@@ -387,22 +387,30 @@ function handlePayment(event) {
         return false;
     }
 
-    const orderTotalText = document.getElementById("orderTotal").innerText.replace("₹", "").trim();
-    const totalAmount = parseFloat(orderTotalText); // Convert to a number
+    const orderTotalText = document.getElementById("orderTotal").innerText;
+    console.log("🛠 Displayed Order Total:", orderTotalText);
+
+    // ✅ Fix: Remove currency symbols and commas before parsing
+    const cleanedText = orderTotalText.replace(/[^\d.]/g, "");  
+    const amount = parseFloat(cleanedText);
+
+    console.log("💰 Extracted Amount Before Sending:", amount);
 
     if (selectedMethod === "razorpay") {
         fetch('/create-razorpayorder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ totalAmount }) // ✅ Send updated total after discount
+            body: JSON.stringify({ amount, currency: "INR" }) // ✅ Correct key
         })
         .then(response => response.json())
         .then(data => {
+            console.log("🚀 Razorpay Order API Response:", data);
+
             var options = {
                 "key": "<%= process.env.RAZORPAY_KEY_ID %>", 
-                "amount": data.amount,
-                "currency": data.currency,
-                "order_id": data.orderId,
+                "amount": data.order.amount,
+                "currency": data.order.currency,
+                "order_id": data.order.id,
                 "handler": function (response) {
                     alert("Payment Successful!");
                     document.getElementById("orderForm").submit();
@@ -419,7 +427,6 @@ function handlePayment(event) {
 
     document.getElementById("orderForm").submit();
 }
-
 
 
 
